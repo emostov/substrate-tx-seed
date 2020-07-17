@@ -25,10 +25,10 @@ export async function createAccounts(): Promise<Accounts> {
 		{ name: 'Alice Stash' },
 		'sr25519'
 	);
-	const bob = keyring.addFromUri('//Bob', { name: 'Bob' }, 'sr25519');
-	const dave = keyring.addFromUri('//Dave', { name: 'Dave' }, 'sr25519');
-	const sagan = keyring.addFromUri('//Sagan', { name: 'Sagan' }, 'sr25519');
-	const eve = keyring.addFromUri('//Eve', { name: 'Eve' }, 'sr25519');
+	const bob = keyring.addFromUri('plug wedding cause similar muscle march car jacket lunar satisfy delay acoustic', { name: 'Bob' }, 'sr25519');
+	const dave = keyring.addFromUri('topple catalog strike shop wave border switch fiction document ship bracket banner', { name: 'Dave' }, 'sr25519');
+	const sagan = keyring.addFromUri('please cabbage jelly build range bone slim review region insect wave echo', { name: 'Sagan' }, 'sr25519');
+	const eve = keyring.addFromUri('retreat remove board sea blush sudden climb hundred forward juice like toe', { name: 'Eve' }, 'sr25519');
 
 	return {
 		alice,

@@ -14,8 +14,8 @@ export async function transfer(api: ApiPromise): Promise<AccountAndBlock[]> {
 
 	const keys: Accounts = await createAccounts();
 
-	const transferBob = api.tx.balances.transfer(keys.eve.address, 1060 * UNIT);
-	const batch = api.tx.utility.batch([transferBob]);
+	const transferTo = api.tx.balances.transfer(keys.bob.address, 1060 * UNIT);
+	const batch = api.tx.utility.batch([transferTo]);
 	const txInfo = await signAndSendInfo(api, batch, keys.alice);
 
 	info.push(txInfo);
