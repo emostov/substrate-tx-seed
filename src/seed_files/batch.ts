@@ -11,25 +11,36 @@ export async function batch(api: ApiPromise): Promise<AccountAndBlock[]> {
 	const info: AccountAndBlock[] = [];
 	const keys: Accounts = await createAccounts();
 
-	// const newKeys = await api.rpc.author.rotateKeys();
+	// Failed
+	// const doubleNestBatch = api.tx.utility.batch([
+	// 	api.tx.staking.nominate([keys.bob.address]),
+	// ]);
 
-	const doubleNestBatchTx = api.tx.utility.batch([
-		api.tx.balances.transfer(keys.bob.address, 510),
+	// const nestedBatchTx = api.tx.utility.batch([
+	// 	api.tx.staking.nominate([keys.dave.address]),
+	// 	doubleNestBatch,
+	// ]);
+
+	// const topBatch = api.tx.utility.batch([
+	// 	api.tx.staking.bondExtra(12345678),
+	// 	nestedBatchTx,
+	// ]);
+
+	const doubleNestBatch = api.tx.utility.batch([
+		api.tx.staking.nominate([keys.bob.address]),
 	]);
 
 	const nestedBatchTx = api.tx.utility.batch([
-		api.tx.balances.transfer(keys.dave.address, 415),
-		doubleNestBatchTx,
+		api.tx.staking.nominate([keys.dave.address]),
+		doubleNestBatch,
 	]);
 
-	const batchTx = [
-		api.tx.balances.transfer(keys.bob.address, 1_000_000_000),
-		// nestedBatchTx,
-	];
+	const topBatch = api.tx.utility.batch([
+		api.tx.staking.nominate([keys.eve.address]),
+		nestedBatchTx,
+	]);
 
-	const batch = api.tx.utility.batch(batchTx);
-
-	info.push(await signAndSendInfo(api, batch, keys.alice));
+	info.push(await signAndSendInfo(api, topBatch, keys.alice));
 
 	return info;
 }

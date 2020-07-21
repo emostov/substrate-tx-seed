@@ -1,9 +1,9 @@
 import { ApiPromise, WsProvider } from '@polkadot/api';
 
 import { AccountAndBlock } from './constants_and_types/types';
-// import { batch } from './seed_files/batch';
+import { batch } from './seed_files/batch';
 // import { session } from './seed_files/session';
-import { system } from './seed_files/system';
+// import { system } from './seed_files/system';
 // import { proxy } from './seed_files/proxy';
 // import { staking } from './seed_files/staking';
 // import { sudo } from './seed_files/sudo';
@@ -14,7 +14,9 @@ import { system } from './seed_files/system';
 async function main(): Promise<AccountAndBlock[]> {
 	// TODO move wsUrl to a configurable env
 	const wsProvider = new WsProvider('ws://127.0.0.1:9944/');
-	const api = await ApiPromise.create({ provider: wsProvider });
+	const api = await ApiPromise.create({
+		provider: wsProvider,
+	});
 
 	let info: AccountAndBlock[] = [];
 
@@ -24,13 +26,13 @@ async function main(): Promise<AccountAndBlock[]> {
 
 	// info = info.concat(await staking(api));
 
-	// info = info.concat(await batch(api));
+	info = info.concat(await batch(api));
 
 	// info = info.concat(await proxy(api));
 
 	// info = info.concat(await session(api));
 
-	info = info.concat(await system(api));
+	// info = info.concat(await system(api));
 
 	// Ideally would feed data into reconciler to check the specific blocks.
 
