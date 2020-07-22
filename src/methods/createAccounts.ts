@@ -12,14 +12,14 @@ export type Accounts = {
 };
 
 export async function createAccounts(): Promise<Accounts> {
-	// Still don't understand the purpose of cryptoWaitReady
+
 	await cryptoWaitReady();
 
 	const keyring: Keyring = new Keyring();
 
 	// Alice is the standard sudo account on dev chains
 	const alice = keyring.addFromUri('//Alice', { name: 'Alice' }, 'sr25519');
-	// Need to make sure this works as I think, for now just using as an address to nominate
+
 	const aliceStash = keyring.addFromUri(
 		'//Alice//stash',
 		{ name: 'Alice Stash' },
