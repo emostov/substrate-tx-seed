@@ -12,6 +12,9 @@ export type Accounts = {
 };
 
 export async function createAccounts(): Promise<Accounts> {
+	// References
+	// https://github.com/paritytech/substrate/blob/833fe6259115625f61347c8413bab29fded31210/primitives/core/src/crypto.rs#L52
+	// Alice is 'bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice'
 
 	await cryptoWaitReady();
 
