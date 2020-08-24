@@ -1,42 +1,20 @@
 import { ApiPromise, WsProvider } from '@polkadot/api';
 
-import { AccountAndBlock } from './constants_and_types/types';
-import { batch } from './seed_files/batch';
-// import { session } from './seed_files/session';
-// import { system } from './seed_files/system';
-// import { proxy } from './seed_files/proxy';
-// import { staking } from './seed_files/staking';
-// import { sudo } from './seed_files/sudo';
-// import { transfer } from './seed_files/transfer';
-
-// This function should just create the api, coordinate calling the other
-// scripts and compiling the data they return;
-async function main(): Promise<AccountAndBlock[]> {
-	// TODO move wsUrl to a configurable env
-	const wsProvider = new WsProvider('ws://127.0.0.1:9944/');
+async function main(): Promise<void> {
+	const wsProvider = new WsProvider('wss://cc3-5.kusama.network');
 	const api = await ApiPromise.create({
 		provider: wsProvider,
 	});
 
-	let info: AccountAndBlock[] = [];
+	// Kusama block 900
+	const hash =
+		'0xc6ec2b15cc9436d9b494e917511f283b29d337984d858e4324aad452d8265aa1';
 
-	// info = info.concat(await transfer(api));
+	const block = await api.rpc.chain.getBlock(hash);
 
-	// info = info.concat(await sudo(api));
-
-	// info = info.concat(await staking(api));
-
-	info = info.concat(await batch(api));
-
-	// info = info.concat(await proxy(api));
-
-	// info = info.concat(await session(api));
-
-	// info = info.concat(await system(api));
-
-	// Ideally would feed data into reconciler to check the specific blocks.
-
-	return info;
+	console.log(
+		block.block.extrinsics.forEach((e) => console.log(e.toHuman()))
+	);
 }
 
-main().then(console.log).catch(console.error);
+main().catch(console.error);
