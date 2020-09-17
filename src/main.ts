@@ -23,7 +23,6 @@ async function main(): Promise<void> {
 	};
 
 	const hash1622398_1 = await api.rpc.chain.getBlockHash(1622398);
-	console.log(hash1622398_1.toString());
 	const events1622398_1 = await api.query.system.events.at(hash1622398_1);
 	console.log('Block 1622398, attempt 1');
 	console.log(mapEvents(events1622398_1), '\n');
